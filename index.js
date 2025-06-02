@@ -28,21 +28,31 @@ async function run() {
 
     const userCollection = client.db("freelancerMarketplaceDB").collection("freelancerUser");
 
-    app.post('/addUser', async(req, res)=>{
-        const userInfo = req.body;
+    app.post('/addUser', async (req, res) => {
+      const userInfo = req.body;
+      const email = userInfo.email;
+
+      const query = { email }
+      const doesUserExist = await userCollection.findOne(query)
+
+      if (doesUserExist) {
+        res.send({message: "User already exists. Skipped database insertion."});
+      }
+      else {
+        userInfo.postedTaskIDs = [];
+
         const result = await userCollection.insertOne(userInfo);
-
         res.send(result);
+      }
+      
     })
-
-
-
-  } finally {}
+    
+  } finally { }
 }
 run().catch(console.dir);
 
 
 
-app.listen(port, ()=>{
-    console.log("Freelancer task marketplace is running on port", port);
+app.listen(port, () => {
+  console.log("Freelancer task marketplace is running on port", port);
 })
