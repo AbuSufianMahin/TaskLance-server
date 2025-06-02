@@ -9,6 +9,9 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 const uri = `mongodb+srv://${process.env.FREELANERDB_USER}:${process.env.FREELANERDB_PASS}@cluster0.udgfocl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -26,7 +29,9 @@ async function run() {
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
-    const userCollection = client.db("freelancerMarketplaceDB").collection("freelancerUser");
+    const freelancerMarketplaceDB = client.db("freelancerMarketplaceDB")
+    const userCollection = freelancerMarketplaceDB.collection("freelancerUser");
+    const taskCollection = freelancerMarketplaceDB.collection("taskCollection");
 
     app.post('/addUser', async (req, res) => {
       const userInfo = req.body;
@@ -36,7 +41,7 @@ async function run() {
       const doesUserExist = await userCollection.findOne(query)
 
       if (doesUserExist) {
-        res.send({message: "User already exists. Skipped database insertion."});
+        res.send({ message: "User already exists. Skipped database insertion." });
       }
       else {
         userInfo.postedTaskIDs = [];
@@ -44,9 +49,25 @@ async function run() {
         const result = await userCollection.insertOne(userInfo);
         res.send(result);
       }
-      
     })
-    
+
+    app.post('/addTask', async (req, res) => {
+      const taskDetails = req.body;
+
+      const query = taskDetails;
+      const doesTaskExist = await taskCollection.findOne(query);
+
+      let result;
+      if (doesTaskExist) {
+        result = { duplicate: true }
+      }
+      else {
+        result = await taskCollection.insertOne(taskDetails);
+      }
+      
+      res.send(result)
+    })
+
   } finally { }
 }
 run().catch(console.dir);
