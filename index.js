@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const app = express()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const port = process.env.PORT || 3000;
 
@@ -34,10 +34,19 @@ async function run() {
     const taskCollection = freelancerMarketplaceDB.collection("taskCollection");
 
 
-    app.get("/freelancerTask", async(req, res)=>{
+    app.get("/freelancerTask", async (req, res) => {
       const taskData = await taskCollection.find().toArray();
       res.send(taskData);
     })
+
+    app.get("/freelancerTask/:taskId", async (req, res) => {
+      const id = req.params.taskId;
+      const query = {_id : new ObjectId(id)}
+
+      const taskDetails = await taskCollection.findOne(query);
+      res.send(taskDetails);
+    })
+
 
 
     app.post('/addUser', async (req, res) => {
@@ -48,7 +57,7 @@ async function run() {
       const doesUserExist = await userCollection.findOne(query)
 
       if (doesUserExist) {
-        res.send({duplicate:true, message: "User already exists. Skipped database insertion." });
+        res.send({ duplicate: true, message: "User already exists. Skipped database insertion." });
       }
       else {
         userInfo.postedTaskIDs = [];
@@ -71,7 +80,7 @@ async function run() {
       else {
         result = await taskCollection.insertOne(taskDetails);
       }
-      
+
       res.send(result)
     })
 
