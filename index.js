@@ -33,6 +33,13 @@ async function run() {
     const userCollection = freelancerMarketplaceDB.collection("freelancerUser");
     const taskCollection = freelancerMarketplaceDB.collection("taskCollection");
 
+
+    app.get("/freelancerTask", async(req, res)=>{
+      const taskData = await taskCollection.find().toArray();
+      res.send(taskData);
+    })
+
+
     app.post('/addUser', async (req, res) => {
       const userInfo = req.body;
       const email = userInfo.email;
@@ -41,7 +48,7 @@ async function run() {
       const doesUserExist = await userCollection.findOne(query)
 
       if (doesUserExist) {
-        res.send({ message: "User already exists. Skipped database insertion." });
+        res.send({duplicate:true, message: "User already exists. Skipped database insertion." });
       }
       else {
         userInfo.postedTaskIDs = [];
