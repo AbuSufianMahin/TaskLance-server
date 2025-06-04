@@ -55,23 +55,6 @@ async function run() {
       res.send(postedTaskData);
     })
 
-    app.post('/addUser', async (req, res) => {
-      const userInfo = req.body;
-      const email = userInfo.email;
-
-      const query = { email }
-      const doesUserExist = await userCollection.findOne(query)
-
-      if (doesUserExist) {
-        res.send({ duplicate: true, message: "User already exists. Skipped database insertion." });
-      }
-      else {
-        userInfo.postedTaskIDs = [];
-
-        const result = await userCollection.insertOne(userInfo);
-        res.send(result);
-      }
-    })
 
     app.post('/addTask', async (req, res) => {
       const taskDetails = req.body;
