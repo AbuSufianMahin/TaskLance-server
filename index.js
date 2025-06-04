@@ -41,13 +41,20 @@ async function run() {
 
     app.get("/freelancerTask/:taskId", async (req, res) => {
       const id = req.params.taskId;
-      const query = {_id : new ObjectId(id)}
+      const query = { _id: new ObjectId(id) }
 
       const taskDetails = await taskCollection.findOne(query);
       res.send(taskDetails);
     })
 
+    app.post("/myPostedTasks", async (req, res) => {
+      const { email } = req.body;
+      const query = { customerEmail: email }
 
+      const postedTaskData = await taskCollection.find(query).toArray();
+
+      res.send(postedTaskData);
+    })
 
     app.post('/addUser', async (req, res) => {
       const userInfo = req.body;
