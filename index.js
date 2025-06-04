@@ -52,7 +52,6 @@ async function run() {
       const query = { customerEmail: email }
 
       const postedTaskData = await taskCollection.find(query).toArray();
-
       res.send(postedTaskData);
     })
 
@@ -91,7 +90,20 @@ async function run() {
       res.send(result)
     })
 
-  } finally { }
+    app.put('/myPostedTasks', async (req, res) => {
+      const newData = req.body;
+      const { _id, ...updateData} = newData;
+      const query = { _id: new ObjectId(_id) };
+      
+      const updateDoc = {
+        $set : updateData
+      }
+
+      const result = await taskCollection.updateOne(query, updateDoc)
+      res.send(result);
+    })
+
+  } finally {}
 }
 run().catch(console.dir);
 
