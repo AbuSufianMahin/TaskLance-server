@@ -103,6 +103,15 @@ async function run() {
       res.send(result);
     })
 
+    app.delete('/freelancerTask/:taskId', async(req, res)=>{
+      const id = req.params.taskId;
+
+      const query = {_id: new ObjectId(id)}
+      const result = await taskCollection.deleteOne(query);
+      res.send(result)
+      //  console.log(query)
+    })
+
   } finally {}
 }
 run().catch(console.dir);
