@@ -47,6 +47,12 @@ async function run() {
       res.send(taskDetails);
     })
 
+    app.get("/featuredTasks", async (req, res) => {
+      const sortFields = {deadlineDate: 1}
+      const taskData = await taskCollection.find().sort(sortFields).limit(6).toArray();
+      res.send(taskData)
+    })
+
     app.post("/myPostedTasks", async (req, res) => {
       const { email } = req.body;
       const query = { customerEmail: email }
@@ -75,27 +81,27 @@ async function run() {
 
     app.put('/myPostedTasks', async (req, res) => {
       const newData = req.body;
-      const { _id, ...updateData} = newData;
+      const { _id, ...updateData } = newData;
       const query = { _id: new ObjectId(_id) };
-      
+
       const updateDoc = {
-        $set : updateData
+        $set: updateData
       }
 
       const result = await taskCollection.updateOne(query, updateDoc)
       res.send(result);
     })
 
-    app.delete('/freelancerTask/:taskId', async(req, res)=>{
+    app.delete('/freelancerTask/:taskId', async (req, res) => {
       const id = req.params.taskId;
 
-      const query = {_id: new ObjectId(id)}
+      const query = { _id: new ObjectId(id) }
       const result = await taskCollection.deleteOne(query);
       res.send(result)
       //  console.log(query)
     })
 
-  } finally {}
+  } finally { }
 }
 run().catch(console.dir);
 
