@@ -14,7 +14,6 @@ app.get('/', (req, res) => {
 })
 const uri = `mongodb+srv://${process.env.FREELANERDB_USER}:${process.env.FREELANERDB_PASS}@cluster0.udgfocl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -25,9 +24,9 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    // await client.connect();
+    // await client.db("admin").command({ ping: 1 });
+    // console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
     const freelancerMarketplaceDB = client.db("freelancerMarketplaceDB")
     const userCollection = freelancerMarketplaceDB.collection("freelancerUser");
