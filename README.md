@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 🧑‍💻 TaskLance – Freelance Task Marketplace
 
 TaskLance is a freelance task marketplace platform designed to connect individuals seeking help with small tasks and skilled freelancers looking for work opportunities. It offers a seamless experience for task posting, bidding, and managing freelance projects.
@@ -46,5 +45,3 @@ TaskLance is a freelance task marketplace platform designed to connect individua
 - **MongoDB**
 - Hosted on **Vercel** with custom CORS setup
 =======
-
->>>>>>> 2aea3b309fc0713ec880fc88ba935855f567641c
