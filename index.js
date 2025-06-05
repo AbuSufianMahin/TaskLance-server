@@ -48,14 +48,14 @@ async function run() {
     })
 
     app.get("/featuredTasks", async (req, res) => {
-      const sortFields = {deadlineDate: 1}
+      const sortFields = { deadlineDate: 1 }
       const taskData = await taskCollection.find().sort(sortFields).limit(6).toArray();
       res.send(taskData)
     })
 
     app.post("/myPostedTasks", async (req, res) => {
       const { email } = req.body;
-      const query = { customerEmail: email }
+      const query = { clientEmail: email }
 
       const postedTaskData = await taskCollection.find(query).toArray();
       res.send(postedTaskData);
@@ -64,6 +64,7 @@ async function run() {
 
     app.post('/addTask', async (req, res) => {
       const taskDetails = req.body;
+      taskDetails.bidsCount = 0;
 
       const query = taskDetails;
       const doesTaskExist = await taskCollection.findOne(query);
@@ -90,6 +91,23 @@ async function run() {
 
       const result = await taskCollection.updateOne(query, updateDoc)
       res.send(result);
+    })
+
+    app.patch('/addBids', async (req, res) => {
+      const taskData = req.body;
+      console.log(taskData);
+      const query = { _id: new ObjectId(taskData._id) }
+
+      const updatedData = {
+        $set: {
+          bidsCount: taskData.bidsCount
+        }
+      }
+
+      const result = await taskCollection.updateOne(query, updatedData);
+      res.send(result);
+
+      console.log(result)
     })
 
     app.delete('/freelancerTask/:taskId', async (req, res) => {
