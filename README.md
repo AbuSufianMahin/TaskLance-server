@@ -1,47 +1,36 @@
-🧑‍💻 TaskLance – Freelance Task Marketplace
+# 🧑‍💻 TaskLance — Backend Server
 
-TaskLance is a freelance task marketplace platform designed to connect individuals seeking help with small tasks and skilled freelancers looking for work opportunities. It offers a seamless experience for task posting, bidding, and managing freelance projects.
+**TaskLance-server** is a scalable backend API built with **Express.js** and **MongoDB**, powering the TaskLance freelance task marketplace with authentication, task management, and secure payment processing.
 
-## 🌐 Live Site
-**Live Link**: [https://tasklanse-task-marketplace.web.app](https://tasklanse-task-marketplace.web.app)  
+---
+
+## 🔗 Related Links
+
+- **Frontend (Client) Repository:** [https://github.com/AbuSufianMahin/TaskLance-client](https://github.com/AbuSufianMahin/TaskLance-client)  
+- **Live Site:** [https://tasklanse-task-marketplace.web.app](https://tasklanse-task-marketplace.web.app)
+
 ---
 
 ## 🚀 Features
 
-- 🔐 **Authentication System** – Email/password & Google login using Firebase Auth
-- 🎯 **Protected Routes** – Add, update, and view personal tasks only if logged in
-- 📥 **Task Management** – Add, browse, update, and delete tasks with CRUD operations
-- 📊 **Featured Tasks Section** – Home page dynamically displays 6 tasks with nearest deadlines
-- 🎨 **Responsive Design** – Optimized for desktop, tablet, and mobile views
-- 💡 **Interactive UI Enhancements** – Implemented with SweetAlert2, Lottie animations, and React Toastify
-- 🌙 **Dark/Light Mode Toggle** – Easily switch between light and dark themes
-- 🔁 **Smooth Routing** – React Router v7 ensures seamless navigation with reload protection
+- RESTful API endpoints for user authentication, task CRUD operations, and bidding  
+- Firebase Authentication integration for secure user management  
+- MongoDB database for persistent data storage  
+- Stripe integration for secure payment handling (if applicable)  
+- CORS enabled for cross-origin requests from frontend  
+- Environment variable configuration via dotenv  
+- Nodemon for development auto-reloading  
 
 ---
 
-## 📸 Screenshots
+## 🛠 Tech Stack & Dependencies
 
-![image](https://github.com/user-attachments/assets/297d9545-5aa5-49e3-b55d-892ad61af463)
-![image](https://github.com/user-attachments/assets/52e82805-17e3-410e-98d4-1cb41cab7b04)
-![image](https://github.com/user-attachments/assets/a379e1bf-feaa-4247-9847-760bd179f2a0) 
-![image](https://github.com/user-attachments/assets/454d212f-6c7c-4fc6-8549-ae2bc2575977)
-![image](https://github.com/user-attachments/assets/a1c71a0d-0cd2-4656-95f4-da0c9806d73c)
-
-
+- [Express.js](https://expressjs.com/) — Web framework  
+- [MongoDB](https://www.mongodb.com/) — NoSQL database  
+- [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup) — User authentication and management  
+- [Stripe](https://stripe.com/docs/api) — Payment processing  
+- [CORS](https://github.com/expressjs/cors) — Cross-origin resource sharing  
+- [dotenv](https://github.com/motdotla/dotenv) — Environment variable management  
+- [Nodemon](https://nodemon.io/) — Development server auto-restart  
 
 ---
-
-## 📁 Tech Stack
-
-### Frontend
-- **React 19**, **React Router v7**
-- **Tailwind CSS v4.1**, **@tailwindcss/vite**
-- **Firebase Auth**
-- **Lottie-react**, **React CountUp**, **React Icons**, **Swiper.js**
-- **Toastify** & **SweetAlert2**
-
-### Backend
-- **Express.js** with Node.js
-- **MongoDB**
-- Hosted on **Vercel** with custom CORS setup
-=======
